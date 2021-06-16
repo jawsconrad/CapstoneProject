@@ -1,0 +1,23 @@
+{
+  "name": "capstoneproject",
+  "version": "1.0.0",
+  "description": "Team 4 - Senior Capstone - MGA\r This is the first change to the CapstoneProject",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jawsconrad/CapstoneProject.git"
+  },
+  "author": "ITEC 4750 Team 4",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jawsconrad/CapstoneProject/issues"
+  },
+  "homepage": "https://github.com/jawsconrad/CapstoneProject#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.1"
+  }
+}
