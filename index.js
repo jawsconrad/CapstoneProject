@@ -7,3 +7,7 @@ app.set("view engine", "ejs")
 app.use("/", (req, res) => {
     res.render('index')
 })
+
+app.listen(8000, () => {
+    console.log('Server up at port 8000')
+})
