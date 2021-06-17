@@ -2,6 +2,7 @@ const dotenv = require('dotenv').config()
 const express = require('express')
 const https = require('https')
 const path = require('path')
+const fs = require('fs')
 
 
 const app = express()
@@ -12,8 +13,9 @@ app.use("/", (req, res) => {
 })
 
 https.createServer({
-    key: fs.readFileSync('./key.pem'),
-    cert: fs.readFileSync('./cert.pem'),
-    passphrase: dotenv.config
+    key: fs.readFileSync(path.join(process.cwd(), 'ssl_cert', 'key.pem')),
+    cert: fs.readFileSync(path.join(process.cwd(), 'ssl_cert', 'certificate.pem')),
 }, app)
-.listen(443)
+.listen(443, () => {
+    console.log('HTTPS server up at port 443.')
+})
