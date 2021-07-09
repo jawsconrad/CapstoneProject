@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/jawsconrad/CapstoneProject#readme",
   "dependencies": {
+    "@popperjs/core": "^2.9.2",
     "bcrypt": "^5.0.1",
+    "bootstrap": "^5.0.2",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1"
