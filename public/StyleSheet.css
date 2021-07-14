@@ -3,6 +3,10 @@ heading {
     color: var(--bs-blue);
 }
 body { text-align: center; }
+    color: blueviolet;
+}
+
+
 .wrapper {
     border-bottom: 2px solid black;
 }
