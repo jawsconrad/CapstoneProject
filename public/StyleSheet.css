@@ -1,6 +1,6 @@
 /**Footer and Navigation**/
 heading {
-    color: blueviolet;
+    color: var(--bs-blue);
 }
 body { text-align: center; }
 .wrapper {
