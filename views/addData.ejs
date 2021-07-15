@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<HTML>
+<head>
+  <%- include('./partials/head'); %>
+</head>
+<body class="container">
+  <header>
+    <%- include('./partials/header'); %>
+  </header>
+  <main>
+    <%- include('./partials/form'); %>
+  </main>
+  
+  <%# For Backend%>
+  <script>
+    const form = document.getElementById('loginform')
+    form.addEventListener('submit', loginUser)
+    async function loginUser(event) {
+      event.preventDefault()
+      const username = document.getElementById('username').value
+      const coughing = document.getElementById('coughing').checked
+      const sneezing = document.getElementById('sneezing').checked
+      const aches = document.getElementById('aches').checked
+      const fever = document.getElementById('fever').checked
+      const result = await fetch('/addData', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username,
+          symptoms: { coughing: coughing, sneezing: sneezing, aches: aches, fever: fever}
+        })
+      }).then(res => res.json())
+    }
+  </script>
+</HTML>

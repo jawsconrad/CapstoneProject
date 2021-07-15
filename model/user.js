@@ -3,11 +3,9 @@ const mongoose = require('mongoose')
 const SymptomSchmea = new mongoose.Schema(
     {
         coughing: { type: Boolean },
-        snezzing: { type: Boolean },
+        sneezing: { type: Boolean },
         aches: { type: Boolean },
-        fever: { type: Boolean },
-        coughing: { type: Boolean },
-        coughing: { type: Boolean },
+        fever: { type: Boolean }
     }
 )
 
@@ -15,8 +13,7 @@ const SymptomSchmea = new mongoose.Schema(
 const UserSchema = new mongoose.Schema(
     {
         username: { type: String, required: true, unique: true},
-        symptoms: [SymptomSchmea],
-        password: { type: String, required: true }
+        symptoms: [SymptomSchmea]
     },
     { collection: 'users' }
 )

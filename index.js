@@ -3,12 +3,12 @@ const express = require('express')
 const https = require('https')
 const path = require('path')
 const fs = require('fs')
-
 const mongoose = require('mongoose')
-const exp = require('constants')
-
+const User = require('./model/user')
 const app = express()
+
 app.set("view engine", "ejs")
+app.use(express.json())
 
 app.use(express.static(__dirname + '/public'))
 app.get("/Logo.png", (req, res) => {
@@ -25,9 +25,9 @@ app.get("/", (req, res) => {
         title: 'Home - COVID Symptom Tracker'
     })
 })
-app.get("/login", (req, res) => {
-    res.render('login', {
-        title: 'Login - COVID Symptom Tracker'
+app.get("/addData", (req, res) => {
+    res.render('addData', {
+        title: 'Add Your Data - COVID Symptom Tracker'
     })
 })
 app.get("/about", (req, res) => {
@@ -35,31 +35,37 @@ app.get("/about", (req, res) => {
         title: 'About - COVID Symptom Tracker'
     })
 })
-app.get("/register", (req, res) => {
-    res.render('register', {
-        title: 'Register - COVID Symptom Tracker'
-    })
-})
-app.get("/admin", (req, res) => {
-        res.render('admin', {
-            title: 'Admin - COVID Symptom Tracker'
-        })
-})
 app.get("/contact", (req, res) => {
     res.render('contact', {
         title: 'Contact - COVID Symptom Tracker'
     })
 })
 
-app.post('/login', async (req, res) => {
-    await mongoose.connect('mongodb://Admin:'+ process.env.MONGO_PWD +'@cluster0.gf4wr.mongodb.net:27017', {
+app.post('/addData', async (req, res) => {
+    await mongoose.connect('mongodb+srv://Admin:'+ process.env.MONGO_PWD +'@cluster0.gf4wr.mongodb.net', {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: false,        
-        autoCreate: true,
-        autoIndex: true
-    })
+        useCreateIndex: true
+    }).then(() => console.log("Connection Opened")).catch(err => console.log(err.reason))
+    
+    try { 
+        const { username, symptoms } = req.body
+        const coughing = req.body.symptoms.coughing
+        const sneezing = req.body.symptoms.sneezing
+        const aches = req.body.symptoms.aches
+        const fever = req.body.symptoms.fever
+        const response = await User.create({
+            username,
+            symptoms: {coughing: coughing, sneezing: sneezing, aches: aches, fever: fever}
+        })
+        console.log('User Created', response)
+    } catch (error) {
+        console.log(error)
+        console.log(req.body)
+    }
 })
+
 https.createServer({
     key: fs.readFileSync(path.join(process.cwd(), 'ssl_cert', 'key.pem')),
     cert: fs.readFileSync(path.join(process.cwd(), 'ssl_cert', 'certificate.pem')),
