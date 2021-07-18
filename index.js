@@ -11,6 +11,7 @@ app.set("view engine", "ejs")
 app.use(express.json())
 
 app.use(express.static(__dirname + '/public'))
+/**Creates links for images and pages...Makes titles for pages as well**/
 app.get("/Logo.png", (req, res) => {
     res.sendFile(path.join(__dirname, "/views/images/Logo.png"));
   });
@@ -40,7 +41,7 @@ app.get("/contact", (req, res) => {
         title: 'Contact - COVID Symptom Tracker'
     })
 })
-
+/**Posts data to database(Mongodb)...Could be configured for other databases**/
 app.post('/addData', async (req, res) => {
     await mongoose.connect('mongodb+srv://Admin:'+ process.env.MONGO_PWD +'@cluster0.gf4wr.mongodb.net', {
         useNewUrlParser: true,
@@ -48,7 +49,7 @@ app.post('/addData', async (req, res) => {
         useFindAndModify: false,        
         useCreateIndex: true
     }).then(() => console.log("Connection Opened")).catch(err => console.log(err.reason))
-    
+    /**Creates data fields for the symptoms to be stored in database...can be changed for other databases**/
     try { 
         const { username, symptoms } = req.body
         const coughing = req.body.symptoms.coughing
